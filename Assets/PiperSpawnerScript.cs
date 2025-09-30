@@ -36,7 +36,7 @@ public class PiperSpawnerScript : MonoBehaviour
         float highestPoint = transform.position.y + heightOffset;
         float randomY = Random.Range(lowestPoint, highestPoint);
         Vector3 spawnPosition = new Vector3(transform.position.x, randomY, 0);
-        Instantiate(barratzaPrefab, spawnPosition, transform.rotation);
+        Instantiate(barratzaPrefab, spawnPosition, barratzaPrefab.transform.rotation);
     }
 
 
