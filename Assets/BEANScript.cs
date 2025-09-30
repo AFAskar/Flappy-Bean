@@ -7,6 +7,8 @@ public class BEANScript : MonoBehaviour
     public float jumpForce = 5;
     private Animator m_animator;
     private Rigidbody2D m_rigidbody2D;
+    private LogicManagerScript logic;
+    public bool isAlive = true;
 
 
     private void OnEnable()
@@ -28,6 +30,7 @@ public class BEANScript : MonoBehaviour
     public InputActionAsset InputActions;
     void Start()
     {
+        logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<LogicManagerScript>();
     }
     public void Jump()
     {
@@ -43,11 +46,17 @@ public class BEANScript : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (m_jump_Action.WasPressedThisFrame())
+        if (m_jump_Action.WasPressedThisFrame() && isAlive)
         {
             Jump();
         }
 
+
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        logic.gameOver();
+        isAlive = false;
 
     }
 }
