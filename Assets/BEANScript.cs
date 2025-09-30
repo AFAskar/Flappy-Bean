@@ -4,7 +4,7 @@ public class BEANScript : MonoBehaviour
 {
     public InputActionAsset inputActions;
     private InputAction m_jump_Action;
-    public float jumpForce;
+    public float jumpForce = 5;
     private Animator m_animator;
     private Rigidbody2D m_rigidbody2D;
 
@@ -20,7 +20,7 @@ public class BEANScript : MonoBehaviour
     }
     private void Awake()
     {
-        m_jump_Action = InputActions.FindActionMap("Player").FindAction("Jump");
+        m_jump_Action = InputSystem.actions.FindAction("Jump");
         m_animator = GetComponent<Animator>();
         m_rigidbody2D = GetComponent<Rigidbody2D>();
 
@@ -32,11 +32,16 @@ public class BEANScript : MonoBehaviour
     public void Jump()
     {
         m_rigidbody2D.linearVelocity = Vector2.up * jumpForce;
-        m_animator.SetTrigger("Jump");
+        if (m_animator != null)
+        {
+            m_animator.SetTrigger("Jump");
+            Debug.LogWarning("No Animator component found on the GameObject.");
+        }
+        Debug.Log("Jumped");
 
     }
     // Update is called once per frame
-    public void Update()
+    private void Update()
     {
         if (m_jump_Action.WasPressedThisFrame())
         {
