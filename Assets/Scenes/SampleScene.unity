@@ -466,7 +466,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 00000000
+  m_ApplyToSortingLayers: 00000000cd6f1e20
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -718,10 +718,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe56d7599dc46d12699cbccc4f78d014, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  inputActions: {fileID: 0}
+  InputActions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   jumpForce: 10
   isAlive: 1
-  InputActions: {fileID: 0}
 --- !u!70 &904915450
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -1078,20 +1077,20 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1186570061}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 694591424}
   - {fileID: 908652416}
-  m_Father: {fileID: 2122821276}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 400, y: 196.18529}
-  m_SizeDelta: {x: 800, y: 392.37057}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0, y: 0}
 --- !u!1 &1205378497
 GameObject:
   m_ObjectHideFlags: 0
@@ -1132,8 +1131,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1205378497}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.66026, y: 0.67094, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1613,8 +1612,8 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: 538865613
+  m_SortingOrder: 100
   m_TargetDisplay: 0
 --- !u!224 &2122821276
 RectTransform:
@@ -1630,7 +1629,6 @@ RectTransform:
   m_Children:
   - {fileID: 1289436710}
   - {fileID: 390635384}
-  - {fileID: 1186570065}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1645,7 +1643,8 @@ SceneRoots:
   - {fileID: 519420032}
   - {fileID: 619394802}
   - {fileID: 904915447}
-  - {fileID: 1551555673}
   - {fileID: 2122821276}
+  - {fileID: 1551555673}
   - {fileID: 1641740634}
   - {fileID: 1205378499}
+  - {fileID: 1186570065}

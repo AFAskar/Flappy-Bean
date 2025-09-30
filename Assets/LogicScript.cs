@@ -5,7 +5,6 @@ public class LogicManagerScript : MonoBehaviour
 {
     public int PlayerScore = 0;
     public TMP_Text ScoreText;
-
     public GameObject GameOverScreen;
 
     [ContextMenu("Increment Score")]

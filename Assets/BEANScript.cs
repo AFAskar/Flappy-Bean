@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 public class BEANScript : MonoBehaviour
 {
-    public InputActionAsset inputActions;
+    public InputActionAsset InputActions;
     private InputAction m_jump_Action;
     public float jumpForce = 5;
     private Animator m_animator;
@@ -26,8 +26,8 @@ public class BEANScript : MonoBehaviour
         m_animator = GetComponent<Animator>();
         m_rigidbody2D = GetComponent<Rigidbody2D>();
 
+
     }
-    public InputActionAsset InputActions;
     void Start()
     {
         logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<LogicManagerScript>();
@@ -38,9 +38,7 @@ public class BEANScript : MonoBehaviour
         if (m_animator != null)
         {
             m_animator.SetTrigger("Jump");
-            Debug.LogWarning("No Animator component found on the GameObject.");
         }
-        Debug.Log("Jumped");
 
     }
     // Update is called once per frame
