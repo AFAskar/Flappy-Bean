@@ -11,6 +11,10 @@ public class BEANScript : MonoBehaviour
 
     public bool isAlive = true;
 
+    // Rotation easing variables
+    public float rotationSpeed = 5f; // How fast the rotation changes
+    private float currentRotation = 90f; // Current rotation angle
+
 
     private void OnEnable()
     {
@@ -54,13 +58,16 @@ public class BEANScript : MonoBehaviour
         {
             Jump();
         }
-        // Tilt the bean's tip based on vertical velocity
+        // Tilt the bean's tip based on vertical velocity with smooth easing
         if (m_rigidbody2D != null)
         {
-            // the bean has been rotated 90 degrees on the z axis in the sprite editor 
-            float angle = Mathf.Clamp(m_rigidbody2D.linearVelocityY * 10, -90, 45);
-            angle = 90 + angle;
-            transform.rotation = Quaternion.Euler(0, 0, angle);
+            // Calculate target rotation based on velocity
+            float targetAngle = Mathf.Clamp(m_rigidbody2D.linearVelocityY * 10, -90, 45);
+            targetAngle = 90 + targetAngle;
+
+            // Smoothly interpolate to target rotation
+            currentRotation = Mathf.LerpAngle(currentRotation, targetAngle, rotationSpeed * Time.deltaTime);
+            transform.rotation = Quaternion.Euler(0, 0, currentRotation);
         }
 
         // Check if the bean has fallen below camera view 

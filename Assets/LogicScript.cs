@@ -7,7 +7,6 @@ public class LogicManagerScript : MonoBehaviour
     public TMP_Text ScoreText;
     public GameObject GameOverScreen;
 
-    public GameObject GameStartScreen;
 
     [ContextMenu("Increment Score")]
     public void addScore(int ScoreToAdd)
@@ -22,14 +21,18 @@ public class LogicManagerScript : MonoBehaviour
     }
     public void gameOver()
     {
-        Debug.Log("Game Over");
+        // set high score
+        int highScore = PlayerPrefs.GetInt("HighScore", 0);
+        if (PlayerScore > highScore)
+        {
+            PlayerPrefs.SetInt("HighScore", PlayerScore);
+        }
         GameOverScreen.SetActive(true);
     }
 
     public void gameStart()
     {
         GameOverScreen.SetActive(false);
-        GameStartScreen.SetActive(false);
         PlayerScore = 0;
         ScoreText.text = $"Score: {PlayerScore}";
     }
