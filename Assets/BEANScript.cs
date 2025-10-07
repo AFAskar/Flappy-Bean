@@ -4,7 +4,6 @@ public class BEANScript : MonoBehaviour
 {
     private Rigidbody2D m_rigidbody2D;
     public float jumpForce = 5;
-    private Animator m_animator;
     private LogicManagerScript logic;
     public InputActionAsset InputActions;
     private InputAction m_jump_Action;
@@ -28,7 +27,6 @@ public class BEANScript : MonoBehaviour
     private void Awake()
     {
         m_jump_Action = InputSystem.actions.FindAction("Jump");
-        m_animator = GetComponent<Animator>();
         m_rigidbody2D = GetComponent<Rigidbody2D>();
 
         if (m_rigidbody2D == null)
@@ -45,10 +43,6 @@ public class BEANScript : MonoBehaviour
     public void Jump()
     {
         m_rigidbody2D.linearVelocity = Vector2.up * jumpForce;
-        if (m_animator != null)
-        {
-            m_animator.SetTrigger("Jump");
-        }
 
     }
     // Update is called once per frame
