@@ -5,6 +5,7 @@ public class LogicManagerScript : MonoBehaviour
 {
     public int PlayerScore = 0;
     public TMP_Text ScoreText;
+    public TMP_Text HighScoreText;
     public GameObject GameOverScreen;
     public AudioSource scoreSound;
     public AudioSource DeathSound;
@@ -30,6 +31,7 @@ public class LogicManagerScript : MonoBehaviour
         if (PlayerScore > highScore)
         {
             PlayerPrefs.SetInt("HighScore", PlayerScore);
+            Debug.Log("New High Score: " + PlayerScore);
         }
         GameOverScreen.SetActive(true);
         if (!hasPlayedDeathSound)
@@ -45,6 +47,8 @@ public class LogicManagerScript : MonoBehaviour
         GameOverScreen.SetActive(false);
         PlayerScore = 0;
         ScoreText.text = $"Score: {PlayerScore}";
+        int HighScore = PlayerPrefs.GetInt("HighScore", 0);
+        HighScoreText.text = $"High Score: {HighScore}";
         hasPlayedDeathSound = false;
     }
 
