@@ -26,8 +26,16 @@ public class StartScript : MonoBehaviour
     }
     public void StartGame()
     {
-        int selectedDifficulty = difficultyDropdown.value;
-        PlayerPrefs.SetInt("Difficulty", selectedDifficulty);
+        // Add null check for dropdown
+        if (difficultyDropdown != null)
+        {
+            int selectedDifficulty = difficultyDropdown.value;
+            PlayerPrefs.SetInt("Difficulty", selectedDifficulty);
+        }
+
+        // Add debug logging to see if method is being called
+        Debug.Log("StartGame method called, loading scene: " + sceneToLoad);
+
         SceneManager.LoadScene(sceneToLoad);
     }
     public void QuitGame()
