@@ -3,11 +3,13 @@ using UnityEngine;
 public class PipeMiddleScript : MonoBehaviour
 {
     private LogicManagerScript logic;
+    private BEANScript beanScript;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<LogicManagerScript>();
-
+        beanScript = GameObject.FindGameObjectWithTag("Player").GetComponent<BEANScript>();
     }
 
     // Update is called once per frame
@@ -18,14 +20,9 @@ public class PipeMiddleScript : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player" && beanScript != null && beanScript.isAlive)
         {
-            BEANScript beanScript = collision.gameObject.GetComponent<BEANScript>();
-            if (beanScript != null && beanScript.isAlive)
-            {
-                logic.addScore(1);
-            }
+            logic.addScore(1);
         }
-
     }
 }

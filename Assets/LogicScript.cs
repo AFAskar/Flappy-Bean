@@ -6,6 +6,9 @@ public class LogicManagerScript : MonoBehaviour
     public int PlayerScore = 0;
     public TMP_Text ScoreText;
     public GameObject GameOverScreen;
+    public AudioSource scoreSound;
+    public AudioSource DeathSound;
+    private bool hasPlayedDeathSound = false;
 
 
     [ContextMenu("Increment Score")]
@@ -13,6 +16,7 @@ public class LogicManagerScript : MonoBehaviour
     {
         PlayerScore += ScoreToAdd;
         ScoreText.text = $"Score: {PlayerScore}";
+        scoreSound.Play();
     }
 
     public void ResetGame()
@@ -28,6 +32,12 @@ public class LogicManagerScript : MonoBehaviour
             PlayerPrefs.SetInt("HighScore", PlayerScore);
         }
         GameOverScreen.SetActive(true);
+        if (!hasPlayedDeathSound)
+        {
+            DeathSound.Play();
+            hasPlayedDeathSound = true;
+        }
+
     }
 
     public void gameStart()
@@ -35,6 +45,7 @@ public class LogicManagerScript : MonoBehaviour
         GameOverScreen.SetActive(false);
         PlayerScore = 0;
         ScoreText.text = $"Score: {PlayerScore}";
+        hasPlayedDeathSound = false;
     }
 
 
