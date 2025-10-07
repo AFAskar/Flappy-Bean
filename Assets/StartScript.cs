@@ -4,18 +4,9 @@ using UnityEngine.SceneManagement;
 public class StartScript : MonoBehaviour
 {
     public string sceneToLoad = "Game";
-    public AudioClip backgroundMusic;
     public TMP_Text highScoreText;
     public TMP_Dropdown difficultyDropdown;
 
-    void Start()
-    {
-        if (backgroundMusic != null)
-        {
-            AudioSource.PlayClipAtPoint(backgroundMusic, Camera.main.transform.position);
-        }
-
-    }
     void Update()
     {
         int highScore = PlayerPrefs.GetInt("HighScore", 0);
