@@ -20,7 +20,11 @@ public class PipeMiddleScript : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            logic.addScore(1);
+            BEANScript beanScript = collision.gameObject.GetComponent<BEANScript>();
+            if (beanScript != null && beanScript.isAlive)
+            {
+                logic.addScore(1);
+            }
         }
 
     }
