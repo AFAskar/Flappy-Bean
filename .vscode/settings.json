@@ -66,5 +66,5 @@
     "explorer.fileNesting.patterns": {
         "*.sln": "*.csproj"
     },
-    "dotnet.defaultSolution": "Flappy-Bean.sln"
+    "dotnet.defaultSolution": "flappy-bean.sln"
 }
