@@ -21,17 +21,16 @@ public class StartScript : MonoBehaviour
             PlayerPrefs.SetInt("Difficulty", selectedDifficulty);
         }
     }
-    public void StartGame()
+    void Awake()
     {
         previousDifficulty = PlayerPrefs.GetInt("Difficulty", 0);
-
         if (difficultyDropdown != null)
         {
-            if (difficultyDropdown.value != previousDifficulty)
-            {
-                difficultyDropdown.value = previousDifficulty;
-            }
+            difficultyDropdown.value = previousDifficulty;
         }
+    }
+    public void StartGame()
+    {
         SceneManager.LoadScene(sceneToLoad);
     }
     public void QuitGame()
