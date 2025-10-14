@@ -9,6 +9,7 @@ public class LogicManagerScript : MonoBehaviour
     public TMP_Text ScoreText;
     public TMP_Text HighScoreText;
     public GameObject GameOverScreen;
+    public GameObject WinScreen;
     public AudioSource scoreSound;
     public AudioSource DeathSound;
     private bool hasPlayedDeathSound = false;
@@ -28,7 +29,7 @@ public class LogicManagerScript : MonoBehaviour
 
     public void ResetGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene("StartScene");
     }
     public void gameOver()
     {
@@ -56,6 +57,13 @@ public class LogicManagerScript : MonoBehaviour
         hasPlayedDeathSound = false;
     }
 
+    public void win()
+    {
+        if (PlayerScore > 20)
+        {
+            WinScreen.SetActive(true);
+        }
+    }
     void Start()
     {
         HighScore = PlayerPrefs.GetInt("HighScore", 0);
