@@ -12,6 +12,23 @@ public class PiperSpawnerScript : MonoBehaviour
     void Start()
     {
         spawnPipe();
+        // set spawn interval based on difficulty easy,medium,hard
+        int difficulty = PlayerPrefs.GetInt("Difficulty");
+        switch (difficulty)
+        {
+            case 0: // Easy
+                spawnInterval = 3;
+                break;
+            case 1: // Medium
+                spawnInterval = 2;
+                break;
+            case 2: // Hard
+                spawnInterval = 1;
+                break;
+            default:
+                spawnInterval = 2;
+                break;
+        }
     }
 
     // Update is called once per frame

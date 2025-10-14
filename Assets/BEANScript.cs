@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 public class BEANScript : MonoBehaviour
 {
+    public AudioSource CollisionSound;
     private Rigidbody2D m_rigidbody2D;
     public float jumpForce = 5;
     private LogicManagerScript logic;
@@ -48,6 +49,11 @@ public class BEANScript : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        if (isAlive == false)
+        {
+            logic.gameOver();
+            return;
+        }
         if (m_jump_Action.WasPressedThisFrame() && isAlive)
         {
             Jump();
@@ -67,14 +73,13 @@ public class BEANScript : MonoBehaviour
         // Check if the bean has fallen below camera view 
         if (transform.position.y < Camera.main.transform.position.y - Camera.main.orthographicSize - 1f && isAlive)
         {
-            logic.gameOver();
             isAlive = false;
         }
 
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        logic.gameOver();
+        CollisionSound.Play();
         isAlive = false;
     }
 

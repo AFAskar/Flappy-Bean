@@ -4,6 +4,8 @@ using UnityEngine.SceneManagement;
 public class LogicManagerScript : MonoBehaviour
 {
     public int PlayerScore = 0;
+    int HighScore;
+
     public TMP_Text ScoreText;
     public TMP_Text HighScoreText;
     public GameObject GameOverScreen;
@@ -17,6 +19,10 @@ public class LogicManagerScript : MonoBehaviour
     {
         PlayerScore += ScoreToAdd;
         ScoreText.text = $"Score: {PlayerScore}";
+        if (PlayerScore > HighScore)
+        {
+            HighScoreText.text = $"High Score: {PlayerScore}";
+        }
         scoreSound.Play();
     }
 
@@ -26,12 +32,11 @@ public class LogicManagerScript : MonoBehaviour
     }
     public void gameOver()
     {
-        // set high score
-        int highScore = PlayerPrefs.GetInt("HighScore", 0);
-        if (PlayerScore > highScore)
+        if (PlayerScore > HighScore)
         {
             PlayerPrefs.SetInt("HighScore", PlayerScore);
             Debug.Log("New High Score: " + PlayerScore);
+            HighScoreText.text = $"High Score: {PlayerScore}";
         }
         GameOverScreen.SetActive(true);
         if (!hasPlayedDeathSound)
@@ -47,9 +52,14 @@ public class LogicManagerScript : MonoBehaviour
         GameOverScreen.SetActive(false);
         PlayerScore = 0;
         ScoreText.text = $"Score: {PlayerScore}";
-        int HighScore = PlayerPrefs.GetInt("HighScore", 0);
         HighScoreText.text = $"High Score: {HighScore}";
         hasPlayedDeathSound = false;
+    }
+
+    void Start()
+    {
+        HighScore = PlayerPrefs.GetInt("HighScore", 0);
+        HighScoreText.text = $"High Score: {HighScore}";
     }
 
 

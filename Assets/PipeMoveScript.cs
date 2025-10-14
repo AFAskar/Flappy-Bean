@@ -6,6 +6,25 @@ public class PipeMoveScript : MonoBehaviour
     float deadzone = -15;
     void Start()
     {
+        // change move speed based on difficuilty easy,medium,hard
+        int difficulty = PlayerPrefs.GetInt("Difficulty");
+        switch (difficulty)
+        {
+            case 0: // Easy
+                moveSpeed = 3;
+                break;
+            case 1: // Medium
+                moveSpeed = 5;
+                break;
+            case 2: // Hard
+                moveSpeed = 8.5f;
+                break;
+            default:
+                moveSpeed = 5;
+                break;
+
+        }
+
 
     }
 
