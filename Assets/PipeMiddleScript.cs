@@ -23,6 +23,10 @@ public class PipeMiddleScript : MonoBehaviour
         if (collision.gameObject.tag == "Player" && beanScript != null && beanScript.isAlive)
         {
             logic.addScore(1);
+            if (logic.PlayerScore >= 20)
+            {
+                logic.win();
+            }
         }
     }
 }

@@ -33,10 +33,10 @@ public class LogicManagerScript : MonoBehaviour
     }
     public void gameOver()
     {
+        if (WinScreen.activeSelf) return;
         if (PlayerScore > HighScore)
         {
             PlayerPrefs.SetInt("HighScore", PlayerScore);
-            Debug.Log("New High Score: " + PlayerScore);
             HighScoreText.text = $"High Score: {PlayerScore}";
         }
         GameOverScreen.SetActive(true);
@@ -59,9 +59,24 @@ public class LogicManagerScript : MonoBehaviour
 
     public void win()
     {
-        if (PlayerScore > 20)
+        if (PlayerScore >= 20)
         {
             WinScreen.SetActive(true);
+            if (PlayerScore > HighScore)
+            {
+                PlayerPrefs.SetInt("HighScore", PlayerScore);
+                HighScoreText.text = $"High Score: {PlayerScore}";
+            }
+
+            GameObject bean = GameObject.FindGameObjectWithTag("Player");
+            if (bean)
+            {
+                BEANScript beanScript = bean.GetComponent<BEANScript>();
+                if (beanScript)
+                {
+                    beanScript.isAlive = false;
+                }
+            }
         }
     }
     void Start()
