@@ -18,12 +18,15 @@ public class PiperSpawnerScript : MonoBehaviour
         {
             case 0: // Easy
                 spawnInterval = 3;
+                heightOffset = 5;
                 break;
             case 1: // Medium
                 spawnInterval = 2;
+                heightOffset = 4;
                 break;
             case 2: // Hard
                 spawnInterval = 1;
+                heightOffset = 3;
                 break;
             default:
                 spawnInterval = 2;
