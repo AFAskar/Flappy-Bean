@@ -1,13 +1,17 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 public class BEANScript : MonoBehaviour
 {
     public AudioSource CollisionSound;
+    public AudioSource DeathSound;
     private Rigidbody2D m_rigidbody2D;
     public float jumpForce = 5;
     private LogicManagerScript logic;
     public InputActionAsset InputActions;
     private InputAction m_jump_Action;
+    public bool hasPlayedDeathSound = false;
+
 
     public bool isAlive = true;
 
@@ -79,8 +83,19 @@ public class BEANScript : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        CollisionSound.Play();
         isAlive = false;
+        if (!hasPlayedDeathSound)
+        {
+            StartCoroutine(PlaySoundsSequentially());
+        }
+    }
+
+    private IEnumerator PlaySoundsSequentially()
+    {
+        CollisionSound.Play();
+        yield return new WaitWhile(() => CollisionSound.isPlaying);
+        DeathSound.Play();
+        hasPlayedDeathSound = true;
     }
 
 

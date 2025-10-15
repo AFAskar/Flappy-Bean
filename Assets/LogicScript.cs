@@ -12,7 +12,6 @@ public class LogicManagerScript : MonoBehaviour
     public GameObject WinScreen;
     public AudioSource scoreSound;
     public AudioSource DeathSound;
-    private bool hasPlayedDeathSound = false;
 
 
     [ContextMenu("Increment Score")]
@@ -40,12 +39,6 @@ public class LogicManagerScript : MonoBehaviour
             HighScoreText.text = $"High Score: {PlayerScore}";
         }
         GameOverScreen.SetActive(true);
-        if (!hasPlayedDeathSound)
-        {
-            DeathSound.Play();
-            hasPlayedDeathSound = true;
-        }
-
     }
 
     public void gameStart()
@@ -54,7 +47,16 @@ public class LogicManagerScript : MonoBehaviour
         PlayerScore = 0;
         ScoreText.text = $"Score: {PlayerScore}";
         HighScoreText.text = $"High Score: {HighScore}";
-        hasPlayedDeathSound = false;
+        GameObject bean = GameObject.FindGameObjectWithTag("Player");
+        if (bean)
+        {
+            BEANScript beanScript = bean.GetComponent<BEANScript>();
+            if (beanScript)
+            {
+                beanScript.isAlive = true;
+                beanScript.hasPlayedDeathSound = false;
+            }
+        }
     }
 
     public void win()
