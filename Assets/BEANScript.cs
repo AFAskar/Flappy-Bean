@@ -78,6 +78,10 @@ public class BEANScript : MonoBehaviour
         if (transform.position.y < Camera.main.transform.position.y - Camera.main.orthographicSize - 1f && isAlive)
         {
             isAlive = false;
+            if (!hasPlayedDeathSound)
+            {
+                StartCoroutine(PlaySoundsSequentially());
+            }
         }
 
     }
@@ -92,10 +96,13 @@ public class BEANScript : MonoBehaviour
 
     private IEnumerator PlaySoundsSequentially()
     {
-        CollisionSound.Play();
-        yield return new WaitWhile(() => CollisionSound.isPlaying);
-        DeathSound.Play();
-        hasPlayedDeathSound = true;
+        if (!logic.hasWon)
+        {
+            CollisionSound.Play();
+            yield return new WaitWhile(() => CollisionSound.isPlaying);
+            DeathSound.Play();
+            hasPlayedDeathSound = true;
+        }
     }
 
 

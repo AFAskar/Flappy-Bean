@@ -11,7 +11,9 @@ public class LogicManagerScript : MonoBehaviour
     public GameObject GameOverScreen;
     public GameObject WinScreen;
     public AudioSource scoreSound;
-    public AudioSource DeathSound;
+
+    public AudioSource WinSound;
+    public bool hasWon = false;
 
 
     [ContextMenu("Increment Score")]
@@ -61,25 +63,24 @@ public class LogicManagerScript : MonoBehaviour
 
     public void win()
     {
-        if (PlayerScore >= 20)
+        WinSound.Play();
+        WinScreen.SetActive(true);
+        if (PlayerScore > HighScore)
         {
-            WinScreen.SetActive(true);
-            if (PlayerScore > HighScore)
-            {
-                PlayerPrefs.SetInt("HighScore", PlayerScore);
-                HighScoreText.text = $"High Score: {PlayerScore}";
-            }
+            PlayerPrefs.SetInt("HighScore", PlayerScore);
+            HighScoreText.text = $"High Score: {PlayerScore}";
+        }
 
-            GameObject bean = GameObject.FindGameObjectWithTag("Player");
-            if (bean)
+        GameObject bean = GameObject.FindGameObjectWithTag("Player");
+        if (bean)
+        {
+            BEANScript beanScript = bean.GetComponent<BEANScript>();
+            if (beanScript)
             {
-                BEANScript beanScript = bean.GetComponent<BEANScript>();
-                if (beanScript)
-                {
-                    beanScript.isAlive = false;
-                }
+                beanScript.isAlive = false;
             }
         }
+        hasWon = true;
     }
     void Start()
     {
