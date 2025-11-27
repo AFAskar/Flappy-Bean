@@ -105,5 +105,14 @@ public class BEANScript : MonoBehaviour
         }
     }
 
+    void OnTriggerEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Coin"))
+        {
+            logic.addScore(1);
+            Destroy(collision.gameObject);
+        }
+    }
+
 
 }
