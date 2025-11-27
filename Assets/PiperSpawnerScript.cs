@@ -3,10 +3,12 @@ using UnityEngine;
 public class PiperSpawnerScript : MonoBehaviour
 {
     public GameObject PipePrefab;
+    public GameObject CoinPrefab; // Prefab for the coin
     public float spawnInterval = 2;
+    public float coinSpawnChance = 1f; // 100% chance to spawn a coin
     private float timer = 0;
 
-    public float heightOffset = 3;
+    public float heightOffset = 2.25f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -57,6 +59,24 @@ public class PiperSpawnerScript : MonoBehaviour
         float randomY = Random.Range(lowestPoint, highestPoint);
         Vector3 spawnPosition = new Vector3(transform.position.x, randomY, 0);
         Instantiate(PipePrefab, spawnPosition, PipePrefab.transform.rotation);
+
+        if (CoinPrefab == null)
+        {
+            Debug.LogError("CoinPrefab is not assigned in PiperSpawnerScript.");
+            return;
+        }
+        // Determine random Y position for the coin within the pipe gap
+        float coinRandomY = Random.Range(lowestPoint + 1, highestPoint + 1);
+
+        float coinRandomChance = Random.Range(0f, 1f);
+        //  decide whether to spawn a coin
+        if (coinRandomChance <= coinSpawnChance)
+        {
+            // Spawn the coin at the middle of the pipe
+            Vector3 coinPosition = new Vector3(spawnPosition.x, coinRandomY, 1);
+            Instantiate(CoinPrefab, coinPosition, Quaternion.identity);
+            Debug.Log("Spawned Coin at Y: " + coinRandomY);
+        }
     }
 
 
