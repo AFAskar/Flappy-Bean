@@ -71,9 +71,11 @@ public class PiperSpawnerScript : MonoBehaviour
         float coinRandomY = Random.Range(lowestPoint + buffer, highestPoint - buffer);
 
         float coinRandomChance = Random.Range(0f, 1f);
-        //  decide whether to spawn a coin
-        if (coinRandomChance <= coinSpawnChance)
+        // Decide whether to spawn a coin
+        if (true)
         {
+            Debug.Log("Spawning coin at position: " + coinRandomY + " within pipe position: " + spawnedPipe.transform.position.y);
+
             // Spawn the coin as a child of the pipe
             Vector3 coinPosition = new Vector3(spawnPosition.x, coinRandomY, 0.5f); // Set Z position to 0.5
             GameObject spawnedCoin = Instantiate(CoinPrefab, coinPosition, Quaternion.identity);
