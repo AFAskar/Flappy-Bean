@@ -1291,7 +1291,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PiperSpawnerScript
   PipePrefab: {fileID: 134869487062888358, guid: 84d6a8cc107c6d00294c2ba810e60d62, type: 3}
+  CoinPrefab: {fileID: 7900820812628809461, guid: 4f1f1fcd3868ba4da9a6df791d114ca2, type: 3}
   spawnInterval: 2
+  coinSpawnChance: 0.5
   heightOffset: 3
 --- !u!4 &870532389
 Transform:
@@ -2301,6 +2303,7 @@ MonoBehaviour:
   WinScreen: {fileID: 1067174400}
   scoreSound: {fileID: 1757361025}
   WinSound: {fileID: 1757361029}
+  hasWon: 0
 --- !u!4 &1757361024
 Transform:
   m_ObjectHideFlags: 0

@@ -58,7 +58,8 @@ public class PiperSpawnerScript : MonoBehaviour
         float highestPoint = transform.position.y + heightOffset;
         float randomY = Random.Range(lowestPoint, highestPoint);
         Vector3 spawnPosition = new Vector3(transform.position.x, randomY, 0);
-        Instantiate(PipePrefab, spawnPosition, PipePrefab.transform.rotation);
+        // Spawn the pipe
+        GameObject spawnedPipe = Instantiate(PipePrefab, spawnPosition, PipePrefab.transform.rotation);
 
         if (CoinPrefab == null)
         {
@@ -66,16 +67,16 @@ public class PiperSpawnerScript : MonoBehaviour
             return;
         }
         // Determine random Y position for the coin within the pipe gap
-        float coinRandomY = Random.Range(lowestPoint + 1, highestPoint + 1);
+        float coinRandomY = Random.Range(lowestPoint + 1, highestPoint - 1);
 
         float coinRandomChance = Random.Range(0f, 1f);
         //  decide whether to spawn a coin
-        if (coinRandomChance <= coinSpawnChance)
+        if (coinRandomChance >= coinSpawnChance)
         {
-            // Spawn the coin at the middle of the pipe
-            Vector3 coinPosition = new Vector3(spawnPosition.x, coinRandomY, 1);
-            Instantiate(CoinPrefab, coinPosition, Quaternion.identity);
-            Debug.Log("Spawned Coin at Y: " + coinRandomY);
+            // Spawn the coin as a child of the pipe
+            Vector3 coinPosition = new Vector3(spawnPosition.x, coinRandomY, 0.5f); // Set Z position to 0.5
+            GameObject spawnedCoin = Instantiate(CoinPrefab, coinPosition, Quaternion.identity);
+            spawnedCoin.transform.parent = spawnedPipe.transform; // Make the coin a child of the pipe
         }
     }
 
