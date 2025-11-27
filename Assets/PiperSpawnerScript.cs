@@ -66,12 +66,13 @@ public class PiperSpawnerScript : MonoBehaviour
             Debug.LogError("CoinPrefab is not assigned in PiperSpawnerScript.");
             return;
         }
-        // Determine random Y position for the coin within the pipe gap
-        float coinRandomY = Random.Range(lowestPoint + 1, highestPoint - 1);
+        // Determine random Y position for the coin within the pipe gap with a buffer
+        float buffer = 1.5f; // Adjust this value to increase the gap
+        float coinRandomY = Random.Range(lowestPoint + buffer, highestPoint - buffer);
 
         float coinRandomChance = Random.Range(0f, 1f);
         //  decide whether to spawn a coin
-        if (coinRandomChance >= coinSpawnChance)
+        if (coinRandomChance <= coinSpawnChance)
         {
             // Spawn the coin as a child of the pipe
             Vector3 coinPosition = new Vector3(spawnPosition.x, coinRandomY, 0.5f); // Set Z position to 0.5
