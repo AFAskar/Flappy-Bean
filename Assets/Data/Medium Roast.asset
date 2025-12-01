@@ -16,4 +16,5 @@ MonoBehaviour:
   color: {r: 0.54509807, g: 0.3529412, b: 0.16862746, a: 1}
   price: 10
   id: medium_roast
-  icon: {fileID: 0}
+  icon: {fileID: 375834526874422378, guid: 797e13aec7a74a409aefc4cdd27d928d, type: 3}
+  overrideSprite: {fileID: 375834526874422378, guid: 797e13aec7a74a409aefc4cdd27d928d, type: 3}

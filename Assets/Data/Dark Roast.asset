@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Dark Roast
   m_EditorClassIdentifier: Assembly-CSharp::CharacterData
   characterName: Dark Roast
-  color: {r: 0.18867922, g: 0.11067225, b: 0.063189745, a: 1}
+  color: {r: 0, g: 0, b: 0, a: 1}
   price: 0
   id: dark_roast
   icon: {fileID: 0}
+  overrideSprite: {fileID: 0}

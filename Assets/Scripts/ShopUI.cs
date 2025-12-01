@@ -1,59 +1,134 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 using System.Collections.Generic;
 
 public class ShopUI : MonoBehaviour
 {
     public ShopManager shopManager;
-    public Transform container;
-    public GameObject itemPrefab;
     public GameObject shopPanel;
+    
+    [Header("UI Elements")]
+    public TMP_Text characterNameText;
+    public Image characterIconImage;
+    public TMP_Text priceText;
+    public Button actionButton;
+    public TMP_Text actionButtonText;
     public TMP_Text coinText;
+    
+    [Header("Navigation")]
+    public Button prevButton;
+    public Button nextButton;
 
-    private List<ShopItemUI> items = new List<ShopItemUI>();
+    private int currentIndex = 0;
 
     void Start()
     {
-        // If shopManager is not assigned, try to find it
         if (shopManager == null) shopManager = ShopManager.Instance;
         
-        // Populate shop
+        // Setup Navigation Buttons
+        if (prevButton) prevButton.onClick.AddListener(PrevCharacter);
+        if (nextButton) nextButton.onClick.AddListener(NextCharacter);
+        if (actionButton) actionButton.onClick.AddListener(OnActionClick);
+
         RefreshShop();
     }
 
     void OnEnable()
     {
         UpdateCoinText();
-        UpdateAllItems();
+        RefreshShop();
     }
 
     public void RefreshShop()
     {
-        // Clear existing
-        foreach (Transform child in container)
-        {
-            Destroy(child.gameObject);
-        }
-        items.Clear();
+        if (shopManager == null || shopManager.characterList.Length == 0) return;
 
-        if (shopManager == null) return;
+        // Clamp index
+        if (currentIndex < 0) currentIndex = 0;
+        if (currentIndex >= shopManager.characterList.Length) currentIndex = shopManager.characterList.Length - 1;
 
-        foreach (var charData in shopManager.characterList)
-        {
-            GameObject obj = Instantiate(itemPrefab, container);
-            ShopItemUI itemUI = obj.GetComponent<ShopItemUI>();
-            itemUI.Setup(charData, shopManager, this);
-            items.Add(itemUI);
-        }
+        CharacterData data = shopManager.characterList[currentIndex];
+        UpdateDisplay(data);
     }
 
-    public void UpdateAllItems()
+    void UpdateDisplay(CharacterData data)
     {
-        foreach (var item in items)
+        // Name
+        if (characterNameText) characterNameText.text = data.characterName;
+
+        // Icon (Use override sprite if available, else color)
+        if (characterIconImage)
         {
-            item.UpdateButtonState();
+            if (data.overrideSprite != null)
+            {
+                characterIconImage.sprite = data.overrideSprite;
+                characterIconImage.color = Color.white;
+            }
+            else
+            {
+                // Assuming we have a default "bean" sprite assigned to the image in Editor
+                characterIconImage.color = data.color;
+            }
         }
+
+        // Button State
+        bool isUnlocked = shopManager.IsCharacterUnlocked(data.id);
+        bool isSelected = shopManager.SelectedCharacterID == data.id;
+
+        if (isSelected)
+        {
+            actionButtonText.text = "Selected";
+            actionButton.interactable = false;
+            if (priceText) priceText.text = "Owned";
+        }
+        else if (isUnlocked)
+        {
+            actionButtonText.text = "Select";
+            actionButton.interactable = true;
+            if (priceText) priceText.text = "Owned";
+        }
+        else
+        {
+            actionButtonText.text = "Buy";
+            if (priceText) priceText.text = data.price.ToString();
+            actionButton.interactable = shopManager.TotalCoins >= data.price;
+        }
+        
         UpdateCoinText();
+    }
+
+    public void NextCharacter()
+    {
+        if (shopManager == null) return;
+        currentIndex = (currentIndex + 1) % shopManager.characterList.Length;
+        RefreshShop();
+    }
+
+    public void PrevCharacter()
+    {
+        if (shopManager == null) return;
+        currentIndex--;
+        if (currentIndex < 0) currentIndex = shopManager.characterList.Length - 1;
+        RefreshShop();
+    }
+
+    public void OnActionClick()
+    {
+        CharacterData data = shopManager.characterList[currentIndex];
+        
+        if (shopManager.IsCharacterUnlocked(data.id))
+        {
+            shopManager.SelectedCharacterID = data.id;
+        }
+        else
+        {
+            if (shopManager.TryBuyCharacter(data))
+            {
+                // Success sound?
+            }
+        }
+        RefreshShop();
     }
 
     public void UpdateCoinText()
@@ -67,7 +142,7 @@ public class ShopUI : MonoBehaviour
     public void OpenShop()
     {
         shopPanel.SetActive(true);
-        UpdateAllItems();
+        RefreshShop();
     }
 
     public void CloseShop()
