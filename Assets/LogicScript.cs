@@ -26,6 +26,10 @@ public class LogicManagerScript : MonoBehaviour
             HighScoreText.text = $"High Score: {PlayerScore}";
         }
         scoreSound.Play();
+        
+        // Add coins
+        int currentCoins = PlayerPrefs.GetInt("TotalCoins", 0);
+        PlayerPrefs.SetInt("TotalCoins", currentCoins + ScoreToAdd);
     }
 
     public void ResetGame()

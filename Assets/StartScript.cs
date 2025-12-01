@@ -6,6 +6,7 @@ public class StartScript : MonoBehaviour
     public string sceneToLoad = "Game";
     public TMP_Text highScoreText;
     public TMP_Dropdown difficultyDropdown;
+    public ShopUI shopUI;
     private int previousDifficulty = 0;
     void Update()
     {
@@ -32,6 +33,14 @@ public class StartScript : MonoBehaviour
     public void StartGame()
     {
         SceneManager.LoadScene(sceneToLoad);
+    }
+    public void OpenShop()
+    {
+        if (shopUI != null) shopUI.OpenShop();
+    }
+    public void CloseShop()
+    {
+        if (shopUI != null) shopUI.CloseShop();
     }
     public void QuitGame()
     {
