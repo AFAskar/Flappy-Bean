@@ -45,11 +45,23 @@ public class BEANScript : MonoBehaviour
     {
         logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<LogicManagerScript>();
         
-        // Apply selected character color
+        // Apply selected character
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
         if (sr != null)
         {
-            sr.color = ShopManager.GetSelectedCharacterColor();
+            CharacterData data = ShopManager.Instance != null ? ShopManager.Instance.GetSelectedCharacter() : null;
+            if (data != null)
+            {
+                if (data.overrideSprite != null)
+                {
+                    sr.sprite = data.overrideSprite;
+                    sr.color = Color.white; // Reset color if using override
+                }
+                else
+                {
+                    sr.color = data.color;
+                }
+            }
         }
     }
     public void Jump()

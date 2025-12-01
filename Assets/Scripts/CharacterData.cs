@@ -7,5 +7,6 @@ public class CharacterData : ScriptableObject
     public Color color = Color.white;
     public int price;
     public string id; // Unique ID for saving
-    public Sprite icon; // Optional: if we want a specific icon in the shop, otherwise we can use the color
+    public Sprite icon; // Optional: if we want a specific icon in the shop
+    public Sprite overrideSprite; // Optional: Overrides the default sprite (useful for Light/Dark variants)
 }
