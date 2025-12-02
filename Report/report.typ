@@ -5,6 +5,7 @@
 
 #show: project.with(
   title: "Flappy Bean Game Design Document",
+  subtitle: "CS458 Game Development Project",
   authors: ("Abdulaziz Fahad BinAskar (443015550)",),
   mentors: ("Dr. Abdullah Ahmed AlOsaimi",),
   branch: "College of Computer and Information Sciences (CCIS)",
@@ -56,6 +57,7 @@ The gameplay revolves around navigating the coffee bean through a series of obst
 - *Skill-Based:* The game relies heavily on the player's reaction time and hand-eye coordination.
 - *Endurance:* The challenge is to maintain focus and consistency over time.
 
+#pagebreak()
 = Termination Condition
 The game ends when:
 - The bean collides with a pipe.

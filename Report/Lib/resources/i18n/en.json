@@ -1,9 +1,9 @@
 {
-  "mentor": "Mentor",
-  "mentor_plural": "Mentors",
+  "mentor": "Supervised By",
+  "mentor_plural": "Supervised By",
   "jury": "Jury",
-  "author": "Author",
-  "author_plural": "Authors",
+  "author": "Written By",
+  "author_plural": "Written By",
   "academic_year": "Academic year",
 
   "figures_table": "Table of figures",

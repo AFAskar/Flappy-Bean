@@ -75,7 +75,7 @@
   let dict = json("resources/i18n/" + lang + ".json")
 
   set text(lang: lang, size: 14pt)
-
+ set par(justify: true)
   show heading: it => {
       v(5pt)
       [#it]
