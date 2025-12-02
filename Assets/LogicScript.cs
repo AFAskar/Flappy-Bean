@@ -14,6 +14,9 @@ public class LogicManagerScript : MonoBehaviour
     public TMP_Text CoinText;
     public GameObject GameOverScreen;
     public GameObject WinScreen;
+    public TMP_Text WinScoreText;
+    public TMP_Text WinCoinText;
+    public GameObject[] WinStars; // Assign 3 star objects in Inspector
     public AudioSource scoreSound;
 
     public AudioSource WinSound;
@@ -91,9 +94,27 @@ public class LogicManagerScript : MonoBehaviour
         WinSound.Play();
         WinScreen.SetActive(true);
         
-        // Update high score if needed, though we are focusing on coins now.
-        // Keeping high score logic in background if we want to persist it, 
-        // but UI now shows coins.
+        // Update Win Screen UI
+        if (WinScoreText != null) WinScoreText.text = $"Score: {PlayerScore}";
+        if (WinCoinText != null) WinCoinText.text = $"+{CoinsCollected}";
+
+        // Star Logic
+        if (WinStars != null && WinStars.Length == 3)
+        {
+            // Reset stars (optional, depending on how they are set up)
+            foreach (var star in WinStars) star.SetActive(false);
+
+            // 1 Star: Always
+            WinStars[0].SetActive(true);
+
+            // 2 Stars: Score > 5 (Example threshold)
+            if (PlayerScore > 5) WinStars[1].SetActive(true);
+
+            // 3 Stars: Score > 10 (Example threshold)
+            if (PlayerScore > 10) WinStars[2].SetActive(true);
+        }
+        
+        // Update high score if needed
         int currentHighScore = PlayerPrefs.GetInt("HighScore", 0);
         if (PlayerScore > currentHighScore)
         {
