@@ -67,15 +67,15 @@ public class PiperSpawnerScript : MonoBehaviour
             return;
         }
         // Determine random Y position for the coin within the pipe gap with a buffer
-        float buffer = 1.5f; // Adjust this value to increase the gap
-        float coinRandomY = Random.Range(lowestPoint + buffer, highestPoint - buffer);
+        // The pipe's position (spawnPosition.y) is the center of the gap.
+        // We want the coin to spawn near this center.
+        float coinOffsetRange = 1.0f; // Range +/- from center
+        float coinRandomY = spawnPosition.y + Random.Range(-coinOffsetRange, coinOffsetRange);
 
         float coinRandomChance = Random.Range(0f, 1f);
         // Decide whether to spawn a coin
         if (true)
         {
-            Debug.Log("Spawning coin at position: " + coinRandomY + " within pipe position: " + spawnedPipe.transform.position.y);
-
             // Spawn the coin as a child of the pipe
             Vector3 coinPosition = new Vector3(spawnPosition.x, coinRandomY, 0.5f); // Set Z position to 0.5
             GameObject spawnedCoin = Instantiate(CoinPrefab, coinPosition, Quaternion.identity);
