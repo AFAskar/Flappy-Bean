@@ -25,6 +25,10 @@ public class LogicManagerScript : MonoBehaviour
     public Image CupImage;
     public Sprite SilverCupSprite;
     public Sprite GoldCupSprite;
+    
+    public Image ShieldImage;
+    public Sprite ShieldSprite;
+    
     public int ShieldThreshold = 10;
     public float ShieldDuration = 5f;
 
@@ -86,6 +90,7 @@ public class LogicManagerScript : MonoBehaviour
                  if (beanScript)
                  {
                      beanScript.ActivateShield(ShieldDuration);
+                     StartCoroutine(ActivateShieldUI(ShieldDuration));
                  }
              }
         }
@@ -114,6 +119,7 @@ public class LogicManagerScript : MonoBehaviour
         CoinsCollected = 0;
         
         if (CupImage != null) CupImage.gameObject.SetActive(false);
+        if (ShieldImage != null) ShieldImage.gameObject.SetActive(false);
         timer = timeLimit;
         isGameActive = true;
 
@@ -194,6 +200,17 @@ public class LogicManagerScript : MonoBehaviour
         }
         hasWon = true;
     }
+    private System.Collections.IEnumerator ActivateShieldUI(float duration)
+    {
+        if (ShieldImage != null && ShieldSprite != null)
+        {
+            ShieldImage.gameObject.SetActive(true);
+            ShieldImage.sprite = ShieldSprite;
+            yield return new WaitForSeconds(duration);
+            ShieldImage.gameObject.SetActive(false);
+        }
+    }
+
     void Start()
     {
         gameStart();
