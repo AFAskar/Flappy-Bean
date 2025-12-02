@@ -14,6 +14,7 @@ public class BEANScript : MonoBehaviour
 
 
     public bool isAlive = true;
+    public bool isInvincible = false;
 
     // Rotation easing variables
     public float rotationSpeed = 5f; // How fast the rotation changes
@@ -106,11 +107,33 @@ public class BEANScript : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (isInvincible) return;
+
         isAlive = false;
         if (!hasPlayedDeathSound)
         {
             StartCoroutine(PlaySoundsSequentially());
         }
+    }
+
+    public void ActivateShield(float duration)
+    {
+        StartCoroutine(ShieldCoroutine(duration));
+    }
+
+    private IEnumerator ShieldCoroutine(float duration)
+    {
+        isInvincible = true;
+        
+        // Visual feedback: Tint blue
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        Color originalColor = sr.color;
+        sr.color = new Color(0.5f, 0.5f, 1f, 1f); // Light blue tint
+
+        yield return new WaitForSeconds(duration);
+
+        isInvincible = false;
+        sr.color = originalColor;
     }
 
     private IEnumerator PlaySoundsSequentially()

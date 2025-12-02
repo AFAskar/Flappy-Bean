@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 public class LogicManagerScript : MonoBehaviour
 {
     public int PlayerScore = 0;
@@ -19,6 +20,13 @@ public class LogicManagerScript : MonoBehaviour
     public GameObject[] WinStars; // Assign 3 star objects in Inspector
     public AudioSource scoreSound;
 
+    [Header("Rewards")]
+    public Image CupImage;
+    public Sprite SilverCupSprite;
+    public Sprite GoldCupSprite;
+    public int ShieldThreshold = 10;
+    public float ShieldDuration = 5f;
+
     public AudioSource WinSound;
     public bool hasWon = false;
 
@@ -29,12 +37,44 @@ public class LogicManagerScript : MonoBehaviour
         PlayerScore += ScoreToAdd;
         ScoreText.text = $"Score: {PlayerScore}";
         scoreSound.Play();
+
+        // Cup Logic
+        if (PlayerScore == 10)
+        {
+            if (CupImage != null && SilverCupSprite != null)
+            {
+                CupImage.gameObject.SetActive(true);
+                CupImage.sprite = SilverCupSprite;
+            }
+        }
+        else if (PlayerScore == 20)
+        {
+             if (CupImage != null && GoldCupSprite != null)
+            {
+                CupImage.gameObject.SetActive(true);
+                CupImage.sprite = GoldCupSprite;
+            }
+        }
     }
 
     public void addCoin(int coinsToAdd)
     {
         CoinsCollected += coinsToAdd;
         CoinText.text = $"Coins: {CoinsCollected}";
+
+        // Shield Logic
+        if (CoinsCollected == ShieldThreshold)
+        {
+             GameObject bean = GameObject.FindGameObjectWithTag("Player");
+             if (bean)
+             {
+                 BEANScript beanScript = bean.GetComponent<BEANScript>();
+                 if (beanScript)
+                 {
+                     beanScript.ActivateShield(ShieldDuration);
+                 }
+             }
+        }
         
         // Update total coins in PlayerPrefs immediately or at end of game? 
         // Original code updated TotalCoins in addScore. Let's keep it consistent.
@@ -58,6 +98,8 @@ public class LogicManagerScript : MonoBehaviour
         GameOverScreen.SetActive(false);
         PlayerScore = 0;
         CoinsCollected = 0;
+        
+        if (CupImage != null) CupImage.gameObject.SetActive(false);
         timer = timeLimit;
         isGameActive = true;
 
