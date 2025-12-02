@@ -95,23 +95,32 @@ public class BEANScript : MonoBehaviour
         }
 
         // Check if the bean has fallen below camera view 
-        if (transform.position.y < Camera.main.transform.position.y - Camera.main.orthographicSize - 1f && isAlive)
+        if (transform.position.y < Camera.main.transform.position.y - Camera.main.orthographicSize - 1f)
         {
-            isAlive = false;
-            if (!hasPlayedDeathSound)
+            if (isAlive)
             {
-                StartCoroutine(PlaySoundsSequentially());
+                isAlive = false;
+                if (!hasPlayedDeathSound)
+                {
+                    StartCoroutine(PlaySoundsSequentially());
+                }
             }
+            Destroy(gameObject);
         }
 
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (isInvincible) return;
+        if (isInvincible || !isAlive) return;
 
         isAlive = false;
+        
+        // Optional: Stop moving (removed to allow falling)
+        // if (m_rigidbody2D != null) m_rigidbody2D.linearVelocity = Vector2.zero;
+
         if (!hasPlayedDeathSound)
         {
+            hasPlayedDeathSound = true; // Set immediately to prevent re-entry
             StartCoroutine(PlaySoundsSequentially());
         }
     }
@@ -143,7 +152,7 @@ public class BEANScript : MonoBehaviour
             CollisionSound.Play();
             yield return new WaitWhile(() => CollisionSound.isPlaying);
             DeathSound.Play();
-            hasPlayedDeathSound = true;
+            yield return new WaitWhile(() => DeathSound.isPlaying);
         }
     }
 
