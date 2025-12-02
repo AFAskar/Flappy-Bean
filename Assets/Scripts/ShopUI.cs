@@ -9,7 +9,6 @@ public class ShopUI : MonoBehaviour
     public GameObject shopPanel;
     
     [Header("UI Elements")]
-    public TMP_Text characterNameText;
     public Image characterIconImage;
     public TMP_Text priceText;
     public Button actionButton;
@@ -54,9 +53,6 @@ public class ShopUI : MonoBehaviour
 
     void UpdateDisplay(CharacterData data)
     {
-        // Name
-        if (characterNameText) characterNameText.text = data.characterName;
-
         // Icon (Use override sprite if available, else color)
         if (characterIconImage)
         {
