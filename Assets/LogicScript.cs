@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 public class LogicManagerScript : MonoBehaviour
 {
     public int PlayerScore = 0;
@@ -29,6 +30,19 @@ public class LogicManagerScript : MonoBehaviour
 
     public AudioSource WinSound;
     public bool hasWon = false;
+
+    private InputAction debugScoreAction;
+
+    private void OnEnable()
+    {
+        debugScoreAction = new InputAction("DebugScore", binding: "<Keyboard>/pageUp");
+        debugScoreAction.Enable();
+    }
+
+    private void OnDisable()
+    {
+        debugScoreAction.Disable();
+    }
 
 
     [ContextMenu("Increment Score")]
@@ -126,6 +140,12 @@ public class LogicManagerScript : MonoBehaviour
             if (timer <= 0)
             {
                 win();
+            }
+
+            // Debug: Add score with PageUp
+            if (debugScoreAction.WasPressedThisFrame())
+            {
+                addScore(1);
             }
         }
     }
