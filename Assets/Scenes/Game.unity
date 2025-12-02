@@ -2680,14 +2680,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LogicManagerScript
   PlayerScore: 0
   CoinsCollected: 0
-  timeLimit: 10
+  timeLimit: 60
   isGameActive: 0
   ScoreText: {fileID: 247163126}
   CoinText: {fileID: 1887892285}
   GameOverScreen: {fileID: 752057889}
   WinScreen: {fileID: 1067174400}
-  WinScoreText: {fileID: 0}
-  WinCoinText: {fileID: 0}
+  WinScoreText: {fileID: 1844201016}
+  WinCoinText: {fileID: 804429991}
   WinStars:
   - {fileID: 2012100598}
   - {fileID: 812513175}
