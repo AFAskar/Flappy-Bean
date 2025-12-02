@@ -128,7 +128,7 @@ public class BEANScript : MonoBehaviour
     {
         if (collision.CompareTag("Coin"))
         {
-            logic.addScore(1);
+            logic.addCoin(1);
             Destroy(collision.gameObject);
         }
     }

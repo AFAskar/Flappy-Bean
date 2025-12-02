@@ -4,10 +4,14 @@ using UnityEngine.SceneManagement;
 public class LogicManagerScript : MonoBehaviour
 {
     public int PlayerScore = 0;
-    int HighScore;
+    public int CoinsCollected = 0;
+    public float timeLimit = 60f;
+    private float timer = 0f;
+    public bool isGameActive = false;
 
     public TMP_Text ScoreText;
-    public TMP_Text HighScoreText;
+    [UnityEngine.Serialization.FormerlySerializedAs("HighScoreText")]
+    public TMP_Text CoinText;
     public GameObject GameOverScreen;
     public GameObject WinScreen;
     public AudioSource scoreSound;
@@ -21,15 +25,18 @@ public class LogicManagerScript : MonoBehaviour
     {
         PlayerScore += ScoreToAdd;
         ScoreText.text = $"Score: {PlayerScore}";
-        if (PlayerScore > HighScore)
-        {
-            HighScoreText.text = $"High Score: {PlayerScore}";
-        }
         scoreSound.Play();
+    }
+
+    public void addCoin(int coinsToAdd)
+    {
+        CoinsCollected += coinsToAdd;
+        CoinText.text = $"Coins: {CoinsCollected}";
         
-        // Add coins
+        // Update total coins in PlayerPrefs immediately or at end of game? 
+        // Original code updated TotalCoins in addScore. Let's keep it consistent.
         int currentCoins = PlayerPrefs.GetInt("TotalCoins", 0);
-        PlayerPrefs.SetInt("TotalCoins", currentCoins + ScoreToAdd);
+        PlayerPrefs.SetInt("TotalCoins", currentCoins + coinsToAdd);
     }
 
     public void ResetGame()
@@ -39,11 +46,7 @@ public class LogicManagerScript : MonoBehaviour
     public void gameOver()
     {
         if (WinScreen.activeSelf) return;
-        if (PlayerScore > HighScore)
-        {
-            PlayerPrefs.SetInt("HighScore", PlayerScore);
-            HighScoreText.text = $"High Score: {PlayerScore}";
-        }
+        isGameActive = false;
         GameOverScreen.SetActive(true);
     }
 
@@ -51,8 +54,13 @@ public class LogicManagerScript : MonoBehaviour
     {
         GameOverScreen.SetActive(false);
         PlayerScore = 0;
+        CoinsCollected = 0;
+        timer = timeLimit;
+        isGameActive = true;
+
         ScoreText.text = $"Score: {PlayerScore}";
-        HighScoreText.text = $"High Score: {HighScore}";
+        CoinText.text = $"Coins: {CoinsCollected}";
+        
         GameObject bean = GameObject.FindGameObjectWithTag("Player");
         if (bean)
         {
@@ -65,14 +73,31 @@ public class LogicManagerScript : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        if (isGameActive)
+        {
+            timer -= Time.deltaTime;
+            if (timer <= 0)
+            {
+                win();
+            }
+        }
+    }
+
     public void win()
     {
+        isGameActive = false;
         WinSound.Play();
         WinScreen.SetActive(true);
-        if (PlayerScore > HighScore)
+        
+        // Update high score if needed, though we are focusing on coins now.
+        // Keeping high score logic in background if we want to persist it, 
+        // but UI now shows coins.
+        int currentHighScore = PlayerPrefs.GetInt("HighScore", 0);
+        if (PlayerScore > currentHighScore)
         {
             PlayerPrefs.SetInt("HighScore", PlayerScore);
-            HighScoreText.text = $"High Score: {PlayerScore}";
         }
 
         GameObject bean = GameObject.FindGameObjectWithTag("Player");
@@ -88,8 +113,7 @@ public class LogicManagerScript : MonoBehaviour
     }
     void Start()
     {
-        HighScore = PlayerPrefs.GetInt("HighScore", 0);
-        HighScoreText.text = $"High Score: {HighScore}";
+        gameStart();
     }
 
 
