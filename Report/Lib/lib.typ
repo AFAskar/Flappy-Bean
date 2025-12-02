@@ -75,38 +75,11 @@
   let dict = json("resources/i18n/" + lang + ".json")
 
   set text(lang: lang, size: 13pt)
-  set heading(numbering: heading-numbering)
 
   show heading: it => {
-    if it.level == 1 and it.numbering != none {
-      if features.contains("full-page-chapter-title") {
-        pagebreak()
-
-        v(1fr)
-        [
-          #text(weight: "regular", size: 30pt)[
-            #dict.chapter #counter(heading).display()
-          ]
-          #linebreak()
-          #text(weight: "bold", size: 36pt)[
-            #it.body
-          ]
-          #line(start: (0%, -1%), end: (15%, -1%), stroke: 2pt + accent-color)
-        ]
-        v(1fr)
-
-        pagebreak()
-      } else {
-        pagebreak()
-        v(40pt)
-        text(size: 30pt)[#dict.chapter #counter(heading).display() #linebreak() #it.body ]
-        v(60pt)
-      }
-    } else {
       v(5pt)
       [#it]
       v(12pt)
-    }
   }
 
   if features.contains("header-chapter-name") {
@@ -262,7 +235,8 @@
     if heading-count > 3 {
       pagebreak()
 
-      outline(depth: 3, indent: auto)
+      outline(title: [Table of Contents], depth: 3, indent: auto)
+      pagebreak()
     }
   }
 
