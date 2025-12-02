@@ -129,7 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 45056184}
   - component: {fileID: 45056185}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: CoinWinTextIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
