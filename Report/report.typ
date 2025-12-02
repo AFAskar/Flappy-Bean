@@ -5,8 +5,8 @@
 
 #show: project.with(
   title: "Flappy Bean Game Design Document",
-  authors: ("Abdulaziz Fahad BinAskar"),
-  mentors: ("Dr. Abdullah Ahmad AlOsaimi"),
+  authors: ("Abdulaziz Fahad BinAskar (443015550)"),
+  mentors: ("Dr. Abdullah Ahmed AlOsaimi"),
   branch: "College of Computer and Information Sciences (CCIS)",
   academic-year: "2025-2026",
   features: "fancy-codeblocks",
