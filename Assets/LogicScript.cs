@@ -36,16 +36,21 @@ public class LogicManagerScript : MonoBehaviour
     public bool hasWon = false;
 
     private InputAction debugScoreAction;
+    private InputAction debugCoinAction;
 
     private void OnEnable()
     {
         debugScoreAction = new InputAction("DebugScore", binding: "<Keyboard>/pageUp");
         debugScoreAction.Enable();
+        
+        debugCoinAction = new InputAction("DebugCoin", binding: "<Keyboard>/pageDown");
+        debugCoinAction.Enable();
     }
 
     private void OnDisable()
     {
         debugScoreAction.Disable();
+        debugCoinAction.Disable();
     }
 
 
@@ -152,6 +157,12 @@ public class LogicManagerScript : MonoBehaviour
             if (debugScoreAction.WasPressedThisFrame())
             {
                 addScore(1);
+            }
+
+            // Debug: Add coin with PageDown
+            if (debugCoinAction.WasPressedThisFrame())
+            {
+                addCoin(1);
             }
         }
     }
