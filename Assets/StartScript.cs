@@ -54,8 +54,10 @@ public class StartScript : MonoBehaviour
                 }
                 else
                 {
-                    // Assuming the default sprite is already set or we don't want to change it if no override
-                    // But we should probably set color if it's a tint-based character
+                    if (ShopManager.Instance.defaultCharacterSprite != null)
+                    {
+                        beanImage.sprite = ShopManager.Instance.defaultCharacterSprite;
+                    }
                     beanImage.color = selectedChar.color;
                 }
             }

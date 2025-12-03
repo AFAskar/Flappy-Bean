@@ -3,6 +3,7 @@ using UnityEngine;
 public class ShopManager : MonoBehaviour
 {
     public CharacterData[] characterList;
+    public Sprite defaultCharacterSprite;
     
     private const string PREF_SELECTED_CHARACTER = "SelectedCharacterID";
     private const string PREF_UNLOCKED_PREFIX = "CharacterUnlocked_";

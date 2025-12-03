@@ -1285,6 +1285,7 @@ MonoBehaviour:
   sceneToLoad: Game
   highScoreText: {fileID: 0}
   difficultyDropdown: {fileID: 355157178}
+  beanImage: {fileID: 1619802608}
   shopUI: {fileID: 646749180}
 --- !u!4 &369110737
 Transform:
@@ -2558,6 +2559,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5c09a6fe3469de23686874d99e0ebee9, type: 2}
   - {fileID: 11400000, guid: 8f98479d437ef90bcaab7bb2043109b1, type: 2}
   - {fileID: 11400000, guid: 385231b9094d37e6e98eeaaa57d015f6, type: 2}
+  defaultCharacterSprite: {fileID: -5224450111193561246, guid: 45d6f764001efd6658cc6773cb09ebba, type: 3}
 --- !u!4 &1052705297
 Transform:
   m_ObjectHideFlags: 0

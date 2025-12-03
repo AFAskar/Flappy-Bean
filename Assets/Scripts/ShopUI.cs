@@ -63,7 +63,10 @@ public class ShopUI : MonoBehaviour
             }
             else
             {
-                // Assuming we have a default "bean" sprite assigned to the image in Editor
+                if (shopManager.defaultCharacterSprite != null)
+                {
+                    characterIconImage.sprite = shopManager.defaultCharacterSprite;
+                }
                 characterIconImage.color = data.color;
             }
         }
