@@ -105,7 +105,6 @@ public class BEANScript : MonoBehaviour
                     StartCoroutine(PlaySoundsSequentially());
                 }
             }
-            Destroy(gameObject);
         }
 
     }
