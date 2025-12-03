@@ -19,7 +19,8 @@ jobs:
       matrix:
         targetPlatform:
           - StandaloneWindows64
-          # - WebGL # Uncomment if you want WebGL builds
+          - StandaloneLinux64
+          - WebGL
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -68,12 +69,17 @@ jobs:
       - name: Zip Builds
         run: |
           cd build
-          zip -r StandaloneWindows64.zip StandaloneWindows64/
+          ls -R
+          zip -r StandaloneWindows64.zip Build-StandaloneWindows64/
+          zip -r StandaloneLinux64.zip Build-StandaloneLinux64/
+          zip -r WebGL.zip Build-WebGL/
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
           files: |
             build/StandaloneWindows64.zip
+            build/StandaloneLinux64.zip
+            build/WebGL.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
